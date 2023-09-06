@@ -1,14 +1,14 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Advanced Ecommerce Website",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "backend": "nodemon server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Rajani Kant Sharma",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.4.0",
