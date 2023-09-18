@@ -1,4 +1,6 @@
 module.exports={
     UserController:require('./userController'),
-    ProductController:require('./productController')
+    ProductController:require('./productController'),
+    CategoryController:require('./categoryController'),
+    BrandController:require('./brandController')
 }

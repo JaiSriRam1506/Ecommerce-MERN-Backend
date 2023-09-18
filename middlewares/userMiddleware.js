@@ -8,7 +8,7 @@ function validateCreateUserRequest(req,res,next){
     const {name,email,password}=req.body;
 
     if(!email || !name || !password || password.length<6 ){
-        ErrorResponse.message="Something wrong while Creating User"
+        ErrorResponse.message="Something is wrong while Creating User"
         ErrorResponse.error=new AppError(['Name or Email or Password no is not in proper format'],StatusCodes.BAD_REQUEST);
 
     return res
@@ -70,7 +70,7 @@ async function checkAuthenticationStatus(req,res,next){
 async function adminOnly(req,res,next){
     try {
         if(req?.user && req?.user?.role==='admin')next();
-        else  throw new AppError(['User is not authorized to Add Products'],StatusCodes.UNAUTHORIZED);
+        else  throw new AppError(['User is not authorized to do the required action'],StatusCodes.UNAUTHORIZED);
     } catch (error) {
         return res
         .status(StatusCodes.UNAUTHORIZED)
