@@ -22,7 +22,7 @@ async function createBrand(userData){
         return brand;
     } catch (error) {
         if(error instanceof AppError) throw error;
-        throw new AppError('Unable to create the Brand', StatusCodes.INTERNAL_SERVER_ERROR);
+        throw new AppError('Unable to create the Brand: '+error, StatusCodes.INTERNAL_SERVER_ERROR);
     }  
 }
 
@@ -31,7 +31,7 @@ async function getBrand(){
         const brand=await Brand.find().sort('-createdAt');
         return brand;
     } catch (error) {
-        throw new AppError('Unable to get all the Brand', StatusCodes.INTERNAL_SERVER_ERROR);
+        throw new AppError('Unable to get all the Brand: '+error, StatusCodes.INTERNAL_SERVER_ERROR);
     }  
 }
 
@@ -43,7 +43,7 @@ async function deleteBrand(slug){
         return brand;
     } catch (error) {
         if(error instanceof AppError) throw error;
-        throw new AppError('Unable to delete Brand', StatusCodes.INTERNAL_SERVER_ERROR);
+        throw new AppError('Unable to delete Brand: '+error, StatusCodes.INTERNAL_SERVER_ERROR);
     }  
 }
 module.exports={

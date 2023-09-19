@@ -16,7 +16,7 @@ async function createCategory(userData){
         return category;
     } catch (error) {
         if(error instanceof AppError) throw error;
-        throw new AppError('Unable to create the Category', StatusCodes.INTERNAL_SERVER_ERROR);
+        throw new AppError('Unable to create the Category: '+error, StatusCodes.INTERNAL_SERVER_ERROR);
     }  
 }
 
@@ -25,7 +25,7 @@ async function getCategory(){
         const category=await Category.find().sort('-createdAt');
         return category;
     } catch (error) {
-        throw new AppError('Unable to get all the Category', StatusCodes.INTERNAL_SERVER_ERROR);
+        throw new AppError('Unable to get all the Category: '+error, StatusCodes.INTERNAL_SERVER_ERROR);
     }  
 }
 
@@ -37,7 +37,7 @@ async function deleteCategory(slug){
         return category;
     } catch (error) {
         if(error instanceof AppError) throw error;
-        throw new AppError('Unable to delete the Category', StatusCodes.INTERNAL_SERVER_ERROR);
+        throw new AppError('Unable to delete the Category: '+error, StatusCodes.INTERNAL_SERVER_ERROR);
     }  
 }
 module.exports={

@@ -25,7 +25,7 @@ async function createUser(userData){
     } catch (error) {
         if(error instanceof AppError) throw error;
         console.log(error)
-        throw new AppError('Unable to register the User', StatusCodes.INTERNAL_SERVER_ERROR);
+        throw new AppError('Unable to register the User: '+error, StatusCodes.INTERNAL_SERVER_ERROR);
     }  
 }
 
@@ -52,8 +52,7 @@ async function signIn(userData){
         }
     } catch (error) {
         if(error instanceof AppError) throw error;
-        console.log(error)
-        throw new AppError('Unable to Login', StatusCodes.INTERNAL_SERVER_ERROR);
+        throw new AppError('Unable to Login: '+error, StatusCodes.INTERNAL_SERVER_ERROR);
     }  
 }
 
@@ -84,7 +83,6 @@ async function isAuthenticated(token){
 
 async function userUpdate(req){
     try {
-        console.log(req.user);
         const user= await User.findById(req.user._id);
         if(!user){
             throw new AppError('User not found',StatusCodes.NOT_FOUND);
@@ -101,7 +99,6 @@ async function userUpdate(req){
         const updatedUser = await user.save();
         return updatedUser;
     } catch (error) {
-        console.log(error);
         if(error instanceof AppError) throw error;
         if(error.name == 'JsonWebTokenError') {
             throw new AppError('Invalid JWT token', StatusCodes.BAD_REQUEST);

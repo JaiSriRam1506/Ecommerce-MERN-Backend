@@ -8,7 +8,6 @@ const mongoose=require('mongoose');
 async function createProduct(userData){
     try {
         const {name,sku,category,brand,color,quantity,sold,regularPrice,price,description,image,ratings}=userData;
-        console.log(userData);
         if(!name || !sku || !category || !brand || !color || !quantity || !sold || !regularPrice || !price || !description){
             throw new AppError('Some of the Product field are missing', StatusCodes.BAD_REQUEST)
         }
@@ -18,7 +17,7 @@ async function createProduct(userData){
         return product;
     } catch (error) {
         if(error instanceof AppError) throw error;
-        throw new AppError('Unable to create the Product', StatusCodes.INTERNAL_SERVER_ERROR);
+        throw new AppError('Unable to create the Product: '+error, StatusCodes.INTERNAL_SERVER_ERROR);
     }  
 }
 
@@ -27,30 +26,29 @@ async function getProducts(){
         const products=await Product.find().sort('-createdAt');
         return products;
     } catch (error) {
-        throw new AppError('Unable to get all the Product', StatusCodes.INTERNAL_SERVER_ERROR);
+        throw new AppError('Unable to get all the Product: '+error, StatusCodes.INTERNAL_SERVER_ERROR);
     }  
 }
 
 async function getProduct(id){
     try {
         const product=await Product.findById(id);
-        console.log(product,id);
-        if(!product)throw new AppError('Unable to find or doesn\'t exists the Product', StatusCodes.NOT_FOUND)
+        if(!product)throw new AppError('Unable to find or doesn\'t exists the Product: '+product, StatusCodes.NOT_FOUND)
         return product;
     } catch (error) {
         if(error instanceof AppError) throw error;
-        throw new AppError('Unable to get single the Product', StatusCodes.INTERNAL_SERVER_ERROR);
+        throw new AppError('Unable to get single the Product: '+error, StatusCodes.INTERNAL_SERVER_ERROR);
     }  
 }
 
 async function deleteProduct(id){
     try {
         const product=await Product.findByIdAndDelete(id);
-        if(!product)throw new AppError('Unable to find or doesn\'t exists the Product', StatusCodes.NOT_FOUND)
+        if(!product)throw new AppError('Unable to find or doesn\'t exists the Product: '+product, StatusCodes.NOT_FOUND)
         return product;
     } catch (error) {
         if(error instanceof AppError) throw error;
-        throw new AppError('Unable to delete the single Product', StatusCodes.INTERNAL_SERVER_ERROR);
+        throw new AppError('Unable to delete the single Product: '+error, StatusCodes.INTERNAL_SERVER_ERROR);
     }  
 }
 
@@ -58,7 +56,7 @@ async function updateProduct(userData,id){
     try {
         const {name,sku,category,brand,color,quantity,sold,regularPrice,price,description,image,ratings}=userData;
         const product=await Product.findById(id);
-        if(!product)throw new AppError('Unable to find or doesn\'t exists the Product', StatusCodes.NOT_FOUND)
+        if(!product)throw new AppError('Unable to find or doesn\'t exists the Product: '+product, StatusCodes.NOT_FOUND)
         const updatedProduct=await Product.findByIdAndUpdate({_id:id},
         {name,category,brand,color,quantity,sold,regularPrice,price,description,image,ratings},
         {
@@ -68,7 +66,7 @@ async function updateProduct(userData,id){
         return updatedProduct;
     } catch (error) {
         if(error instanceof AppError) throw error;
-        throw new AppError('Unable to Update the single Product', StatusCodes.INTERNAL_SERVER_ERROR);
+        throw new AppError('Unable to Update the single Product: '+error, StatusCodes.INTERNAL_SERVER_ERROR);
     }  
 }
 
@@ -77,7 +75,7 @@ async function reviewProduct(userData,id){
         const {star,ratings,ratingDate,name,userId}=userData;
         if(star<1 || !ratings)throw new AppError('Please add a star or review of the Product', StatusCodes.BAD_REQUEST)
         const product=await Product.findById(id);
-        if(!product)throw new AppError('Unable to find or doesn\'t exists the Product', StatusCodes.NOT_FOUND)
+        if(!product)throw new AppError('Unable to find or doesn\'t exists the Product: '+product, StatusCodes.NOT_FOUND)
         const updatedProduct=await product.ratings.push({
         star,ratings,ratingDate,name:name,userID:userId
     });
@@ -85,7 +83,7 @@ async function reviewProduct(userData,id){
     return updatedProduct;
     } catch (error) {
         if(error instanceof AppError) throw error;
-        throw new AppError('Unable to add review of the Product', StatusCodes.INTERNAL_SERVER_ERROR);
+        throw new AppError('Unable to add review of the Product: '+error, StatusCodes.INTERNAL_SERVER_ERROR);
     }  
 }
 async function deleteReview(userID,userId,product_id){
@@ -101,9 +99,8 @@ async function deleteReview(userID,userId,product_id){
         product.save();
         return newReview;
     } catch (error) {
-        console.log(error);
         if(error instanceof AppError) throw error;
-        throw new AppError('Unable to delete review of the Product', StatusCodes.INTERNAL_SERVER_ERROR);
+        throw new AppError('Unable to delete review of the Product: '+error, StatusCodes.INTERNAL_SERVER_ERROR);
     }  
 }
 
@@ -129,9 +126,8 @@ async function updateReview(userData,id){
         if(!updateReview)throw new AppError('Unable to Update review of the Product', StatusCodes.INTERNAL_SERVER_ERROR);
         return updatedReview;
     } catch (error) {
-        console.log(error);
         if(error instanceof AppError) throw error;
-        throw new AppError('Unable to Update review of the Product', StatusCodes.INTERNAL_SERVER_ERROR);
+        throw new AppError('Unable to Update review of the Product: '+error, StatusCodes.INTERNAL_SERVER_ERROR);
     }  
 }
 
