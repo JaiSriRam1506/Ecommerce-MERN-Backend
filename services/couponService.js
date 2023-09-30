@@ -22,8 +22,8 @@ async function createCoupon(userData){
 
 async function getCoupons(){
     try {
-        const coupon=await Coupon.find().sort('-createdAt');
-        return coupon;
+        const coupons=await Coupon.find().sort('-createdAt');
+        return coupons;
     } catch (error) {
         throw new AppError('Unable to get all the Coupon: '+error, StatusCodes.INTERNAL_SERVER_ERROR);
     }  

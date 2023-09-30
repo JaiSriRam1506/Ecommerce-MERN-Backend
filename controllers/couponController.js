@@ -7,7 +7,7 @@ const {ServerConfig}=require('../config/index')
 async function createCoupon(req,res){
     try {
         const response=await CouponService.createCoupon({
-            name:req.body.name,
+            name:req.body.coupon,
             expiresAt:req.body.expiresAt,
             discount:req.body.discount
         })

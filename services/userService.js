@@ -124,7 +124,7 @@ async function updatePhoto(req){
         return updatedUser;
 
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         if(error instanceof AppError) throw error;
         if(error.name == 'JsonWebTokenError') {
             throw new AppError('Invalid JWT token', StatusCodes.BAD_REQUEST);

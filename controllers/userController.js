@@ -43,8 +43,8 @@ async function signIn(req,res){
             password:req.body.password
         })
             const {user,jwtToken}=response;
-            const { _id, name, email, phone, role } = user;
-            SuccessResponse.data={ _id, name, email, phone, role,jwtToken};
+            const { _id, name, email, phone, role,photo } = user;
+            SuccessResponse.data={ _id, name, email, phone, role,jwtToken,photo};
             SuccessResponse.message="Login Successful";
             return res
                 .status(StatusCodes.CREATED)
@@ -93,6 +93,8 @@ async function logout(req,res){
 async function getUser(req,res){
     try {
             const user= await User.findById(req.user._id).select("-password");
+            console.log("Controller")
+            console.log(user)
             SuccessResponse.message="Successfully retrieved the User data";
             SuccessResponse.data=user;
             return res
