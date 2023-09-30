@@ -25,6 +25,7 @@ async function getCategory(){
         const category=await Category.find().sort('-createdAt');
         return category;
     } catch (error) {
+        //console.log(error);
         throw new AppError('Unable to get all the Category: '+error, StatusCodes.INTERNAL_SERVER_ERROR);
     }  
 }

@@ -27,10 +27,11 @@ async function createUser(req,res){
                   })
                 .json(SuccessResponse)
     } catch (error) {
+        ErrorResponse.message=error.explanation;
         ErrorResponse.error=error;
         ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
         return res
-                .status(400)
+                .status(error.statusCode)
                 .json(ErrorResponse);
     }
 }
@@ -56,10 +57,11 @@ async function signIn(req,res){
                   })
                 .json(SuccessResponse)
     } catch (error) {
+        ErrorResponse.message=error.explanation;
         ErrorResponse.error=error;
         ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
         return res
-                .status(400)
+                .status(error.statusCode)
                 .json(ErrorResponse);
     }
 }
@@ -79,10 +81,11 @@ async function logout(req,res){
                   })
                 .json(SuccessResponse)
     } catch (error) {
+        ErrorResponse.message=error.explanation;
         ErrorResponse.error=error;
         ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
         return res
-                .status(400)
+                .status(error.statusCode)
                 .json(ErrorResponse);
     }
 }
@@ -96,10 +99,11 @@ async function getUser(req,res){
                 .status(StatusCodes.OK)
                 .json(SuccessResponse)
     } catch (error) {
+        ErrorResponse.message=error.explanation;
         ErrorResponse.error=error;
         ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
         return res
-                .status(400)
+                .status(error.statusCode)
                 .json(ErrorResponse);
     }
 }
@@ -114,10 +118,11 @@ async function updateUser(req,res){
                 .status(StatusCodes.OK)
                 .json(SuccessResponse)
     } catch (error) {
+        ErrorResponse.message=error.explanation;
         ErrorResponse.error=error;
         ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
         return res
-                .status(400)
+                .status(error.statusCode)
                 .json(ErrorResponse);
     }
 }
@@ -132,10 +137,11 @@ async function updatePhoto(req,res){
                 .status(StatusCodes.OK)
                 .json(SuccessResponse)
     } catch (error) {
+        ErrorResponse.message=error.explanation;
         ErrorResponse.error=error;
         ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
         return res
-                .status(400)
+                .status(error.statusCode)
                 .json(ErrorResponse);
     }
 }

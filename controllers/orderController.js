@@ -22,10 +22,11 @@ async function createOrder(req,res){
                 .status(StatusCodes.CREATED)
                 .json(SuccessResponse)
     } catch (error) {
+        ErrorResponse.message=error.explanation;
         ErrorResponse.error=error;
         ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
         return res
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .status(error.statusCode)
                 .json(ErrorResponse);
     }
 }
@@ -39,10 +40,11 @@ async function getOrders(req,res){
                 .status(StatusCodes.OK)
                 .json(SuccessResponse)
     } catch (error) {
+        ErrorResponse.message=error.explanation;
         ErrorResponse.error=error;
         ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
         return res
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .status(error.statusCode)
                 .json(ErrorResponse);
     }
 }
@@ -56,10 +58,11 @@ async function getOrderbyId(req,res){
                 .status(StatusCodes.OK)
                 .json(SuccessResponse)
     } catch (error) {
+        ErrorResponse.message=error.explanation;
         ErrorResponse.error=error;
         ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
         return res
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .status(error.statusCode)
                 .json(ErrorResponse);
     }
 }
@@ -73,10 +76,11 @@ async function updateOrderStatus(req,res){
                 .status(StatusCodes.OK)
                 .json(SuccessResponse)
     } catch (error) {
+        ErrorResponse.message=error.explanation;
         ErrorResponse.error=error;
         ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
         return res
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .status(error.statusCode)
                 .json(ErrorResponse);
     }
 }

@@ -16,7 +16,7 @@ async function createBrand(userData){
         if(!categoryExists)throw new AppError('Unable to find or doesn\'t exists the Category', StatusCodes.NOT_FOUND);
 
         const brandExist= await Brand.findOne({name});
-        if(brandExist) throw new AppError('Brand name already exists', StatusCodes.BAD_REQUEST)
+        if(brandExist?.category===category) throw new AppError('Brand name already exists', StatusCodes.BAD_REQUEST)
 
         const brand=await Brand.create({name,slug:slugify(name),category})
         return brand;

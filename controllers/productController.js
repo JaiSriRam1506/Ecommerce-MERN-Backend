@@ -26,10 +26,12 @@ async function createProduct(req,res){
                 .status(StatusCodes.CREATED)
                 .json(SuccessResponse)
     } catch (error) {
+        //console.log(error)
+        ErrorResponse.message=error.explanation;
         ErrorResponse.error=error;
         ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
         return res
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .status(error.statusCode)
                 .json(ErrorResponse);
     }
 }
@@ -43,10 +45,11 @@ async function getProducts(req,res){
                 .status(StatusCodes.OK)
                 .json(SuccessResponse)
     } catch (error) {
+        ErrorResponse.message=error.explanation;
         ErrorResponse.error=error;
         ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
         return res
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .status(error.statusCode)
                 .json(ErrorResponse);
     }
 }
@@ -60,10 +63,11 @@ async function getProduct(req,res){
                 .status(StatusCodes.OK)
                 .json(SuccessResponse)
     } catch (error) {
+        ErrorResponse.message=error.explanation;
         ErrorResponse.error=error;
         ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
         return res
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .status(error.statusCode)
                 .json(ErrorResponse);
     }
 }
@@ -77,10 +81,11 @@ async function deleteProduct(req,res){
                 .status(StatusCodes.OK)
                 .json(SuccessResponse)
     } catch (error) {
+        ErrorResponse.message=error.explanation;
         ErrorResponse.error=error;
         ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
         return res
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .status(error.statusCode)
                 .json(ErrorResponse);
     }
 }
@@ -106,10 +111,11 @@ async function updateProduct(req,res){
                 .status(StatusCodes.OK)
                 .json(SuccessResponse)
     } catch (error) {
+        ErrorResponse.message=error.explanation;
         ErrorResponse.error=error;
         ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
         return res
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .status(error.statusCode)
                 .json(ErrorResponse);
     }
 }
@@ -130,10 +136,11 @@ async function reviewProduct(req,res){
                 .status(StatusCodes.OK)
                 .json(SuccessResponse)
     } catch (error) {
+        ErrorResponse.message=error.explanation;
         ErrorResponse.error=error;
         ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
         return res
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .status(error.statusCode)
                 .json(ErrorResponse);
     }
 }
@@ -148,10 +155,11 @@ async function deleteReview(req,res){
                 .status(StatusCodes.OK)
                 .json(SuccessResponse)
     } catch (error) {
+        ErrorResponse.message=error.explanation;
         ErrorResponse.error=error;
         ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
         return res
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .status(error.statusCode)
                 .json(ErrorResponse);
     }
 }
@@ -172,10 +180,11 @@ async function updateReview(req,res){
                 .status(StatusCodes.OK)
                 .json(SuccessResponse)
     } catch (error) {
+        ErrorResponse.message=error.explanation;
         ErrorResponse.error=error;
         ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
         return res
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .status(error.statusCode)
                 .json(ErrorResponse);
     }
 }

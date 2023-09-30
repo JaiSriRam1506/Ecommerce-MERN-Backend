@@ -17,10 +17,11 @@ async function createCoupon(req,res){
                 .status(StatusCodes.CREATED)
                 .json(SuccessResponse)
     } catch (error) {
+        ErrorResponse.message=error.explanation;
         ErrorResponse.error=error;
         ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
         return res
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .status(error.statusCode)
                 .json(ErrorResponse);
     }
 }
@@ -34,10 +35,11 @@ async function getCoupons(req,res){
                 .status(StatusCodes.OK)
                 .json(SuccessResponse)
     } catch (error) {
+        ErrorResponse.message=error.explanation;
         ErrorResponse.error=error;
         ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
         return res
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .status(error.statusCode)
                 .json(ErrorResponse);
     }
 }
@@ -51,10 +53,11 @@ async function getSingleCoupons(req,res){
                 .status(StatusCodes.OK)
                 .json(SuccessResponse)
     } catch (error) {
+        ErrorResponse.message=error.explanation;
         ErrorResponse.error=error;
         ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
         return res
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .status(error.statusCode)
                 .json(ErrorResponse);
     }
 }
@@ -68,10 +71,11 @@ async function deleteCoupon(req,res){
                 .status(StatusCodes.OK)
                 .json(SuccessResponse)
     } catch (error) {
+        ErrorResponse.message=error.explanation;
         ErrorResponse.error=error;
         ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
         return res
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .status(error.statusCode)
                 .json(ErrorResponse);
     }
 }

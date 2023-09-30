@@ -8,7 +8,7 @@ const mongoose=require('mongoose');
 async function createProduct(userData){
     try {
         const {name,sku,category,brand,color,quantity,sold,regularPrice,price,description,image,ratings}=userData;
-        if(!name || !sku || !category || !brand || !color || !quantity || !sold || !regularPrice || !price || !description){
+        if(!name || !sku || !category || !brand || !color || !quantity || !regularPrice || !price || !description){
             throw new AppError('Some of the Product field are missing', StatusCodes.BAD_REQUEST)
         }
         const product=await Product.create({
@@ -16,6 +16,7 @@ async function createProduct(userData){
         });
         return product;
     } catch (error) {
+        // console.log(error)
         if(error instanceof AppError) throw error;
         throw new AppError('Unable to create the Product: '+error, StatusCodes.INTERNAL_SERVER_ERROR);
     }  
