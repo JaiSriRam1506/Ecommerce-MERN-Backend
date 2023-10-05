@@ -46,6 +46,9 @@ const userSchema=mongoose.Schema({
         country:String
         // address, state, country
       },
+      cartItems:{
+        type:[Object]
+      }
 },
 {
   timestamps:true

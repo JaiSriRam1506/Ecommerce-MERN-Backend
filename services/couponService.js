@@ -35,9 +35,10 @@ async function getSingleCoupons(name){
             name,
             expiresAt:{$gt:Date.now()}
         });
-        if(!coupon)AppError('Unable to find the Coupon or has expired', StatusCodes.INTERNAL_SERVER_ERROR)
+        if(!coupon) throw new AppError('Invalid Coupon or Expired', StatusCodes.INTERNAL_SERVER_ERROR)
         return coupon;
     } catch (error) {
+        console.log(error);
         if(error instanceof AppError) throw error;
         throw new AppError('Unable to get the Coupon: '+error, StatusCodes.INTERNAL_SERVER_ERROR);
     }  

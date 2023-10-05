@@ -93,8 +93,8 @@ async function logout(req,res){
 async function getUser(req,res){
     try {
             const user= await User.findById(req.user._id).select("-password");
-            console.log("Controller")
-            console.log(user)
+            // console.log("Controller")
+            // console.log(user)
             SuccessResponse.message="Successfully retrieved the User data";
             SuccessResponse.data=user;
             return res
@@ -148,11 +148,50 @@ async function updatePhoto(req,res){
     }
 }
 
+async function saveToCart(req,res){
+    try {
+           //console.log(req.body)
+            const cart= await UserService.saveToCart(req)
+            SuccessResponse.message="Successfully saved into User Cart";
+            SuccessResponse.data=cart;
+            return res
+                .status(StatusCodes.OK)
+                .json(SuccessResponse)
+    } catch (error) {
+        ErrorResponse.message=error.explanation;
+        ErrorResponse.error=error;
+        ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
+        return res
+                .status(error.statusCode)
+                .json(ErrorResponse);
+    }
+}
+
+async function getCart(req,res){
+    try {
+            const cartItems= await UserService.getCart(req)
+            SuccessResponse.message="Successfully retrieved Cart Items";
+            SuccessResponse.data=cartItems;
+            return res
+                .status(StatusCodes.OK)
+                .json(SuccessResponse)
+    } catch (error) {
+        ErrorResponse.message=error.explanation;
+        ErrorResponse.error=error;
+        ErrorResponse.stack=ServerConfig.NODE_ENV==='development'?error.stack:null;
+        return res
+                .status(error.statusCode)
+                .json(ErrorResponse);
+    }
+}
+
 module.exports={
     createUser,
     signIn,
     getUser,
     logout,
     updateUser,
-    updatePhoto
+    updatePhoto,
+    saveToCart,
+    getCart
 }

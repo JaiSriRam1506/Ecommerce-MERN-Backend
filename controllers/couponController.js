@@ -46,7 +46,7 @@ async function getCoupons(req,res){
 
 async function getSingleCoupons(req,res){
     try {
-        const response=await CouponService.getSingleCoupons(req.body.name);
+        const response=await CouponService.getSingleCoupons(req.params.coupon);
             SuccessResponse.data=response;
             SuccessResponse.message="Single Coupon retrieved Successfully";
             return res

@@ -32,4 +32,8 @@ router.patch('/updateUser',UserMiddleware.checkAuthentication,
 router.patch('/updatePhoto',UserMiddleware.checkAuthentication,
                         UserController.updatePhoto);                        
 
+router.patch('/saveCart',UserMiddleware.checkAuthentication,
+                        UserController.saveToCart); 
+router.get('/getCart',UserMiddleware.checkAuthentication,
+                        UserController.getCart);
 module.exports=router;

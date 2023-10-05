@@ -10,7 +10,7 @@ const middlewares=[UserMiddleware.checkAuthentication,UserMiddleware.adminOnly]
 router.post('/createCoupon',middlewares,CouponController.createCoupon);
 
 router.get('/getCoupons',middlewares,CouponController.getCoupons);
-router.get('/getCoupon',CouponController.getSingleCoupons);
+router.get('/getCoupon/:coupon',CouponController.getSingleCoupons);
 
 
 router.delete('/deleteCoupon/:id',middlewares,

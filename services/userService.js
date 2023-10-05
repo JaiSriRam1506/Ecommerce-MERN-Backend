@@ -24,7 +24,7 @@ async function createUser(userData){
         }
     } catch (error) {
         if(error instanceof AppError) throw error;
-        console.log(error)
+        //console.log(error)
         throw new AppError('Unable to register the User: '+error, StatusCodes.INTERNAL_SERVER_ERROR);
     }  
 }
@@ -136,10 +136,59 @@ async function updatePhoto(req){
     }
 }
 
+async function saveToCart(req){
+    try {
+
+        const user= await User.findById(req.user._id);
+        if(!user){
+            throw new AppError('User not found',StatusCodes.NOT_FOUND);
+        } 
+        const {cartItems}=user;
+        user.cartItems=req.body.cartItems || cartItems;
+        const cart = await user.save();
+        return cart;
+
+    } catch (error) {
+        //console.log(error);
+        if(error instanceof AppError) throw error;
+        if(error.name == 'JsonWebTokenError') {
+            throw new AppError('Invalid JWT token', StatusCodes.BAD_REQUEST);
+        }
+        if(error.name=='TokenExpiredError'){
+            throw new AppError('JWT Token has been expired',StatusCodes.BAD_REQUEST)
+        }
+        throw new AppError("Unable to authenticate to the Server",StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+
+async function getCart(req){
+    try {
+
+        const user= await User.findById(req.user._id);
+        if(!user){
+            throw new AppError('User not found',StatusCodes.NOT_FOUND);
+        } 
+        return user.cartItems;
+
+    } catch (error) {
+        //console.log(error);
+        if(error instanceof AppError) throw error;
+        if(error.name == 'JsonWebTokenError') {
+            throw new AppError('Invalid JWT token', StatusCodes.BAD_REQUEST);
+        }
+        if(error.name=='TokenExpiredError'){
+            throw new AppError('JWT Token has been expired',StatusCodes.BAD_REQUEST)
+        }
+        throw new AppError("Unable to authenticate to the Server",StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+
 module.exports={
     createUser,
     signIn,
     isAuthenticated,
     userUpdate,
-    updatePhoto
+    updatePhoto,
+    saveToCart,
+    getCart
 }
