@@ -1,8 +1,10 @@
 const {StatusCodes}=require('http-status-codes')
 const AppError=require('../utils/error/app-error');
-const Order = require('../models/orderModel')
+const Order = require('../models/orderModel');
+const sendEmail= require('../utils/helpers/sendEmail');
+const {OrderSuccessEmail}=require('../emailTemplate/OrderTemplate')
 
-async function createOrder(orderData,userID){
+async function createOrder(orderData,userID,req){
     try {
         const {orderDate,orderTime,orderAmount,orderStatus,paymentMethod,
             cartItems,shippingAddress,coupon,billingAddress}=orderData;
@@ -22,6 +24,14 @@ async function createOrder(orderData,userID){
             billingAddress,
             coupon:coupon?coupon:{name:'nil'}
         })
+
+         //Send Order Details to Customer         
+         const subject=process.env.SUBJECT
+         const send_to=req.user.email
+         const template=OrderSuccessEmail(req.user.name,cartItems)
+         const reply_to='no_reply@ecommerce.com'
+         await sendEmail(subject,send_to,template,reply_to);
+
         return order;
     } catch (error) {
         if(error instanceof AppError) throw error;

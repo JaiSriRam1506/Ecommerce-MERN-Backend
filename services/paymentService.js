@@ -16,7 +16,6 @@ async function payWithStripe(orderData){
           let totalAfterDiscount =orderAmount - (orderAmount * coupon.discount) / 100;
           orderAmount = totalAfterDiscount.toFixed(2)*100;
         }
-        console.log(orderAmount);
         // Create a PaymentIntent with the order amount and currency
         const paymentIntent = await stripe.paymentIntents.create({
           amount: orderAmount,
