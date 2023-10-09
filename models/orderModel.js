@@ -35,13 +35,18 @@ const orderSchema=mongoose.Schema({
         trim:true
     },
     cartItems:{
-        //type:[Object],
-        type:String,
+        type:[Object],
+        //type:String,
         required:true
     },
     shippingAddress:{
-        type:String,
-        //type:Object,
+        //type:String,
+        type:Object,
+        required:true
+    },
+    billingAddress:{
+        //type:String,
+        type:Object,
         required:true
     },
     coupon:{

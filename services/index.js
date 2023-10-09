@@ -4,5 +4,6 @@ module.exports={
     CategoryService:require('./categoryService'),
     BrandService:require('./brandService'),
     CouponService:require('./couponService'),
-    OrderService:require('./orderService')
+    OrderService:require('./orderService'),
+    PaymentService:require('./paymentService')
 }

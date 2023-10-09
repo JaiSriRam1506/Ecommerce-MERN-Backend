@@ -14,8 +14,10 @@ async function createOrder(req,res){
             paymentMethod:req.body.orderMethod,
             cartItems:req.body.cartItems,
             shippingAddress:req.body.shippingAddress,
+            billingAddress:req.body.billingAddress,
+            paymentMethod:req.body.paymentMethod,
             coupon:req.body.coupon
-        },req.user._id)
+        },req.user._id.toString())
             SuccessResponse.data=response;
             SuccessResponse.message="Order Created Successfully";
             return res
@@ -89,5 +91,5 @@ module.exports={
     createOrder,
     getOrders,
     getOrderbyId,
-    updateOrderStatus
+    updateOrderStatus,
 }

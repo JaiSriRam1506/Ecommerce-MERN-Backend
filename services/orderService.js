@@ -5,9 +5,9 @@ const Order = require('../models/orderModel')
 async function createOrder(orderData,userID){
     try {
         const {orderDate,orderTime,orderAmount,orderStatus,paymentMethod,
-            cartItems,shippingAddress,coupon}=orderData;
+            cartItems,shippingAddress,coupon,billingAddress}=orderData;
         
-        if(!orderDate || !orderTime || !orderAmount || !orderStatus || !paymentMethod || !cartItems || !shippingAddress){
+        if(!orderDate || !orderTime || !orderAmount || !orderStatus || !paymentMethod || !cartItems.length || !shippingAddress || !billingAddress){
             throw new AppError('Some of the order information is missing', StatusCodes.BAD_REQUEST)
         }
         const order=await Order.create({
@@ -19,7 +19,8 @@ async function createOrder(orderData,userID){
             paymentMethod,
             cartItems,
             shippingAddress,
-            coupon
+            billingAddress,
+            coupon:coupon?coupon:{name:'nil'}
         })
         return order;
     } catch (error) {

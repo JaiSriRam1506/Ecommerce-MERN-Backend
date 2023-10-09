@@ -4,5 +4,6 @@ module.exports={
     CategoryController:require('./categoryController'),
     BrandController:require('./brandController'),
     CouponController:require('./couponController'),
-    OrderController:require('./orderController')
+    OrderController:require('./orderController'),
+    PaymentController:require('./paymentController')
 }
