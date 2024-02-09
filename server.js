@@ -49,19 +49,23 @@ app.use((req, res, next) => {
   next();
 });
 console.log("Request has Reached at Preflight");
-app.options("*", (req, res, next) => {
-  console.log("preflight");
-  if (
-    req.headers.origin === "https://ecommerce-mern-frontend-rho.vercel.app" &&
-    allowMethods.includes(req.headers["access-control-request-method"]) &&
-    allowHeaders.includes(req.headers["access-control-request-headers"])
-  ) {
-    console.log("pass");
-    next();
-  } else {
-    console.log("fail");
-  }
+
+app.options("/*", (_, res) => {
+  res.sendStatus(200);
 });
+// app.options("*", (req, res, next) => {
+//   console.log("preflight");
+//   if (
+//     req.headers.origin === "https://ecommerce-mern-frontend-rho.vercel.app" &&
+//     allowMethods.includes(req.headers["access-control-request-method"]) &&
+//     allowHeaders.includes(req.headers["access-control-request-headers"])
+//   ) {
+//     console.log("pass");
+//     next();
+//   } else {
+//     console.log("fail");
+//   }
+// });
 console.log("Request has Reached");
 app.use("/api", apiRoutes);
 
