@@ -21,6 +21,8 @@ app.use(
     ],
     credentials: true,
     optionSuccessStatus: 200,
+    methods: "*",
+    preflightContinue: true,
   })
 );
 app.use("/api", apiRoutes);
