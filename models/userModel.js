@@ -58,7 +58,7 @@ userSchema.pre("save",async function (next){
         if(!this.isModified('password'))return next();
 
         //Hash the Password
-        const encryptPassword=bcrypt.hashSync(this.password,+ServerConfig.SALT_ROUNDS);
+        const encryptPassword=await bcrypt.hashSync(this.password,+ServerConfig.SALT_ROUNDS);
         this.password=encryptPassword;
         next();
 })

@@ -15,7 +15,7 @@ const OrderSuccessEmail = (name, cartItems) => {
           columns: {
             // Optionally, customize the column widths
             customWidth: {
-              product: "40%",
+              product: "50%",
             },
             // Optionally, change column text alignment
             //   customAlignment: {

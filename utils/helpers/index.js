@@ -1,4 +1,5 @@
 const Stripe = require("stripe");
+const Product =require('../../models/productModel')
 
 // Instantiate stripe
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
@@ -29,8 +30,28 @@ function applyDiscount(cartTotalAmount, discountPercentage) {
   return updatedTotal;
 }
 
+const updateProductQuantity=async(cartItem)=>{
+  const bulkOption=cartItem.map((product)=>{
+    return{
+      updateOne:{
+        filter:{_id:product._id},
+        update:{
+          $inc:{
+            quantity:-product.cartQuantity,
+            sold:+product.cartQuantity,
+          }
+        }
+      }
+    }
+  })
+
+  await Product.bulkWrite(bulkOption,{});
+
+}
+
 module.exports = {
   stripe,
   calculateTotalPrice,
   applyDiscount,
+  updateProductQuantity
 };

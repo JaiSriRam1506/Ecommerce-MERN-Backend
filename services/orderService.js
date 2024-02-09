@@ -2,7 +2,8 @@ const {StatusCodes}=require('http-status-codes')
 const AppError=require('../utils/error/app-error');
 const Order = require('../models/orderModel');
 const sendEmail= require('../utils/helpers/sendEmail');
-const {OrderSuccessEmail}=require('../emailTemplate/OrderTemplate')
+const {OrderSuccessEmail}=require('../emailTemplate/OrderTemplate');
+const { updateProductQuantity } = require('../utils/helpers');
 
 async function createOrder(orderData,userID,req){
     try {
@@ -24,6 +25,9 @@ async function createOrder(orderData,userID,req){
             billingAddress,
             coupon:coupon?coupon:{name:'nil'}
         })
+        
+        //Update Order Quantity
+        await updateProductQuantity(cartItems)
 
          //Send Order Details to Customer         
          const subject=process.env.SUBJECT
