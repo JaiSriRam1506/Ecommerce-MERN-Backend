@@ -49,7 +49,7 @@ app.use((req, res, next) => {
   next();
 });
 console.log("Request has Reached at Preflight");
-app.options("*", (req, res) => {
+app.options("*", (req, res, next) => {
   console.log("preflight");
   if (
     req.headers.origin === "https://ecommerce-mern-frontend-rho.vercel.app" &&
@@ -57,7 +57,7 @@ app.options("*", (req, res) => {
     allowHeaders.includes(req.headers["access-control-request-headers"])
   ) {
     console.log("pass");
-    return res.status(204).send();
+    next();
   } else {
     console.log("fail");
   }
